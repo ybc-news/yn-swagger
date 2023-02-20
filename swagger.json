@@ -1,0 +1,801 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "YBC News Authorize and Authenticate",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api-news.ybcsystems.com"
+    }
+  ],
+  "tags": [
+    {
+      "name": "yn-auth-provider"
+    },
+    {
+      "name": "yn-access-control"
+    },
+    {
+      "name": "yn-access-control > Scope"
+    },
+    {
+      "name": "yn-access-control > Role"
+    },
+    {
+      "name": "yn-access-control > RoleScope"
+    },
+    {
+      "name": "yn-access-control > UserLocation"
+    },
+    {
+      "name": "yn-access-control > UserCategory"
+    },
+    {
+      "name": "yn-access-control > UserRole"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/auth/v1/register.php": {
+      "post": {
+        "tags": [
+          "yn-auth-provider"
+        ],
+        "summary": "Admin Register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "first_name": "Super",
+                  "last_name": "Admin",
+                  "email": "superadmin@gmail.com",
+                  "password": "password"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/auth/v1/login": {
+      "post": {
+        "tags": [
+          "yn-auth-provider"
+        ],
+        "summary": "Login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "email": "superadmin@gmail.com",
+                  "password": "password"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/auth/v1/refresh": {
+      "get": {
+        "tags": [
+          "yn-auth-provider"
+        ],
+        "summary": "Refresh",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJpc3MiOiJ5bi1hdXRoLXByb3ZpZGVyIiwiZXhwIjoxNjcyOTg0NTU4LCJkYXRhIjp7ImlzcyI6InluLWF1dGgtcHJvdmlkZXIiLCJleHAiOjE2NzI5ODQ0NDUsImRhdGEiOnsiaXNzIjoieW4tYXV0aC1wcm92aWRlciIsImV4cCI6MTY3Mjk4NDQyOSwiZGF0YSI6eyJ1c2VyX2lkIjoiNjNiN2FiYjA2YTY0ZSIsImZpcnN0bmFtZSI6IkRvZyIsImxhc3RuYW1lIjoiQWRtaW4iLCJlbWFpbCI6ImRvZ0BnbWFpbC5jb20ifX19fQ.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/auth/v1/logout": {
+      "get": {
+        "tags": [
+          "yn-auth-provider"
+        ],
+        "summary": "Logout",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzM4NCJ9.eyJpc3MiOiJ5bi1hdXRoLXByb3ZpZGVyIiwiZXhwIjoxNjcyOTg0NDQ1LCJkYXRhIjp7ImlzcyI6InluLWF1dGgtcHJvdmlkZXIiLCJleHAiOjE2NzI5ODQ0MjksImRhdGEiOnsidXNlcl9pZCI6IjYzYjdhYmIwNmE2NGUiLCJmaXJzdG5hbWUiOiJEb2ciLCJsYXN0bmFtZSI6IkFkbWluIiwiZW1haWwiOiJkb2dAZ21haWwuY29tIn19fQ.E76Lw6BqMkdcWCx_9ebTk4vBpXPWA6jpklDghcbDPU8_2q9Sb8F-ZmLfm_fN1gZww83yDMoV3GDKeuxI6Oz5GMtSnH7J0YnJrcUHQuNzlEEdcFZFjkZHsk9HkDYdWExW_nxaMNfKcJkPeQcULQp-hZ6-1D3yaqc4N4aPQuyPcfYB0fAEy4kNCHxi0rlLJFMcQ2A5kG4nt9MOn0lwE90s2Xsqt3eU_qhy53eNDlfZnxEgPwbEzsEX5oA-_rGPO9XZviYwCq8sAznNuNM_OpP4ZQGmsz3jOGLb2MZ3mltjvsXGKtLUsPj3yon_ySlIms6Yx7MrK9QSf3ot8n0723aeGw\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/auth/v1/user/registerdetail.php": {
+      "post": {
+        "tags": [
+          "yn-auth-provider"
+        ],
+        "summary": "Register Details api. scope is yn.user.details.create",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "user_id": "63b7162e7728b",
+                  "employee_code": "xkjd",
+                  "mobile_number": "39879",
+                  "phone_number": "2423422",
+                  "address1": "1232 sjksd",
+                  "address2": "Apt A"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/auth/v1/user/list.php": {
+      "get": {
+        "tags": [
+          "yn-auth-provider"
+        ],
+        "summary": "List users. status: ACTIVE, NEW or DEACTIVE. if status in query is null then its NEW users by default. scope is yn.user.list",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "63b7162e7728b"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "ACTIVE"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/auth/v1/user/changestatus": {
+      "patch": {
+        "tags": [
+          "yn-auth-provider"
+        ],
+        "summary": "Change Status (ACTIVE, NEW or DEACTIVE) with help of id of user. scope is yn.user.changestatus",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "id": "63d9c5a615a86",
+                  "status": "ACTIVE"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/rbac/v1/scope/create.php": {
+      "post": {
+        "tags": [
+          "yn-access-control > Scope"
+        ],
+        "summary": "Create Scope. scope is yn.scope.create",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "title": [
+                    "yn.news.create",
+                    "yn.news.list",
+                    "yn.news.update",
+                    "yn.news.delete"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/rbac/v1/scope/list.php": {
+      "get": {
+        "tags": [
+          "yn-access-control > Scope"
+        ],
+        "summary": "List scope. scope is yn.scope.list",
+        "parameters": [
+          {
+            "name": "scope_id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "63c3c0b96adf9"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/rbac/v1/role/create.php": {
+      "post": {
+        "tags": [
+          "yn-access-control > Role"
+        ],
+        "summary": "Create Role. scope is yn.role.create",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "title": [
+                    "news-reporter",
+                    "admin"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/rbac/v1/role/list.php": {
+      "get": {
+        "tags": [
+          "yn-access-control > Role"
+        ],
+        "summary": "List. scope is yn.role.list",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "63c4d23c6482e"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/rbac/v1/role-scope/assign.php": {
+      "post": {
+        "tags": [
+          "yn-access-control > RoleScope"
+        ],
+        "summary": "assign. scope is yn.role.scope.assign",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": [
+                  {
+                    "role_id": "63c4d23c6d799",
+                    "scope_id": [
+                      "63c4cedc47bf4",
+                      "63c4cedc4854f",
+                      "63c4cedc49619"
+                    ]
+                  },
+                  {
+                    "role_id": "63c4d23c6482e",
+                    "scope_id": [
+                      "63c4cedc47bf4",
+                      "63c4cedc4854f"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/rbac/v1/role-scope/update.php": {
+      "patch": {
+        "tags": [
+          "yn-access-control > RoleScope"
+        ],
+        "summary": "assign. scope is yn.role.scope.update",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": [
+                  {
+                    "role_id": "63c4d23c6d799",
+                    "scope_id": [
+                      "63c4cedc47bf4",
+                      "63c4cedc4854f",
+                      "63c4cedc49619"
+                    ]
+                  },
+                  {
+                    "role_id": "63c4d23c6482e",
+                    "scope_id": [
+                      "63c4cedc47bf4",
+                      "63c4cedc4854f"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/rbac/v1/role-scope/list.php": {
+      "get": {
+        "tags": [
+          "yn-access-control > RoleScope"
+        ],
+        "summary": "List. scope is yn.role.scope.list",
+        "parameters": [
+          {
+            "name": "role_id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "63c4d23c6482e"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/rbac/v1/user-location/assign.php": {
+      "post": {
+        "tags": [
+          "yn-access-control > UserLocation"
+        ],
+        "summary": "assign. scope is yn.user.location.assign",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": [
+                  {
+                    "user_id": "63c4d23c6d799",
+                    "location_id": [
+                      "63c4cedc47bf4",
+                      "63c4cedc4854f",
+                      "63c4cedc49619"
+                    ]
+                  },
+                  {
+                    "user_id": "63c4d23c6482e",
+                    "location_id": [
+                      "63c4cedc47bf4",
+                      "63c4cedc4854f"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/rbac/v1/user-location/update.php": {
+      "patch": {
+        "tags": [
+          "yn-access-control > UserLocation"
+        ],
+        "summary": "update api. scope is yn.user.location.update",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": [
+                  {
+                    "user_id": "63c4d23c6d799",
+                    "location_id": [
+                      "63c4cedc47bf4",
+                      "63c4cedc4854f",
+                      "63c4cedc49619"
+                    ]
+                  },
+                  {
+                    "user_id": "63c4d23c6482e",
+                    "location_id": [
+                      "63c4cedc47bf4",
+                      "63c4cedc4854f"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/rbac/v1/user-location/list.php": {
+      "get": {
+        "tags": [
+          "yn-access-control > UserLocation"
+        ],
+        "summary": "List api. scope is yn.user.location.list",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "63c4d23c6482e"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/rbac/v1/user-category/assign.php": {
+      "post": {
+        "tags": [
+          "yn-access-control > UserCategory"
+        ],
+        "summary": "assign api. scope is yn.user.category.assign",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": [
+                  {
+                    "user_id": "63c4d23c6d799",
+                    "category_id": [
+                      "63c4cedc47bf4",
+                      "63c4cedc4854f",
+                      "63c4cedc49619"
+                    ]
+                  },
+                  {
+                    "user_id": "63c4d23c6482e",
+                    "category_id": [
+                      "63c4cedc47bf4",
+                      "63c4cedc4854f"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/rbac/v1/user-category/update.php": {
+      "patch": {
+        "tags": [
+          "yn-access-control > UserCategory"
+        ],
+        "summary": "assign update api. scope is yn.user.category.update",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": [
+                  {
+                    "user_id": "63c4d23c6d799",
+                    "category_id": [
+                      "63c4cedc47bf4",
+                      "63c4cedc4854f",
+                      "63c4cedc49619"
+                    ]
+                  },
+                  {
+                    "user_id": "63c4d23c6482e",
+                    "category_id": [
+                      "63c4cedc47bf4",
+                      "63c4cedc4854f"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/rbac/v1/user-category/list.php": {
+      "get": {
+        "tags": [
+          "yn-access-control > UserCategory"
+        ],
+        "summary": "List api. scope is yn.user.category.list",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "example": "63c4d23c6482e"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/rbac/v1/user-role/assign.php": {
+      "post": {
+        "tags": [
+          "yn-access-control > UserRole"
+        ],
+        "summary": "Assign api. scope is yn.user.role.assign",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": [
+                  {
+                    "user_id": "63bda5e2851d9",
+                    "role_id": [
+                      "63c4d23c6d799",
+                      "63c4d23c6482e"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/rbac/v1/user-role/update.php": {
+      "patch": {
+        "tags": [
+          "yn-access-control > UserRole"
+        ],
+        "summary": "Assign update api. scope is yn.user.role.update",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": [
+                  {
+                    "user_id": "63bda5e2851d9",
+                    "role_id": [
+                      "63c4d23c6d799",
+                      "63c4d23c6482e"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/rbac/v1/user-role/list.php": {
+      "get": {
+        "tags": [
+          "yn-access-control > UserRole"
+        ],
+        "summary": "List api. scope is yn.user.role.list",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    }
+  }
+}
